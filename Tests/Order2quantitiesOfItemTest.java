@@ -1,28 +1,49 @@
 package Tests;
 import org.openqa.selenium.WebDriver;
+
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
+
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
+
+import org.testng.annotations.BeforeTest;
+
 import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.Test;
+
 import Pages.*;
-import org.openqa.selenium.WebDriver;
 
-import static org.junit.Assert.*;
 
-import org.junit.Test;
+
+
 
 public class Order2quantitiesOfItemTest {
 WebDriver driver;
+
+ExtentTest test;
+
+ExtentReports report;
+
 Home homePage;
+
 ContactUs contactUs;
+
 Order2quantititesOfItem order2;
 
-@Before 
+@BeforeTest 
 public void setup(){
+	report = new ExtentReports (
+			"C:\\Users\\Administrator\\Desktop\\Result\\automationreport.html",true);
+	
 	System.setProperty("webdriver.chrome.driver","C:\\Users\\Administrator\\Desktop\\Selenium\\chromedriver.exe");
     
 	driver = new ChromeDriver();
+	
 	driver.get("http://automationpractice.com");
+	
+	report = new ExtentReports (
+			"C:\\Users\\Administrator\\Desktop\\Result\\automationreport.html",true);
 	
 }
 
@@ -30,11 +51,24 @@ public void setup(){
 @Test
 public void order2ItemsTest(){
 	homePage = new Home(driver);
+	
 	order2 = new Order2quantititesOfItem(driver);
+	
 	contactUs = new ContactUs(driver);
 	
+	test = report.startTest("Verify On home page");
+	
+	test.log(LogStatus.INFO,"Browser started");
+	
 	String homePagetitle = homePage.getTitle();
-	assertEquals(homePage.getTitle(),"My Store");
+	
+	if(homePagetitle.equals(homePage.getTitle())){
+		
+	test.log(LogStatus.PASS, "Verify that you're on home page");
+	}else {
+		test.log(LogStatus.FAIL, "Verify that you're on home page");
+	}
+	//assertEquals(homePage.getTitle(),"My Store");
 	
 	order2.clickOnPopular();
 	
@@ -70,7 +104,10 @@ public void order2ItemsTest(){
 //	
 	order2.assertNumberIs2();
 	
-	assertEquals(order2.assertNumberIs2(),true);
+	//assertEquals(order2.assertNumberIs2(),true);
+	
+	report.endTest(test);
+	report.flush();
 	
 }
 

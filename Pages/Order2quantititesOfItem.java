@@ -70,7 +70,8 @@ public class Order2quantititesOfItem {
 	
 	public boolean assertNumberIs2(){
 		boolean result;
-		if(!driver.findElement(By.className("price")).getText().equals("$33.02")){
+		//check that the total price and unit price are not the same
+		if(!driver.findElement(By.className("price")).getText().equals("$16.51")){
 			result= true;
 			}else result = false;
 		
