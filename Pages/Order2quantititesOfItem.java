@@ -40,6 +40,39 @@ public class Order2quantititesOfItem {
 	@FindBy(xpath = "/html/body/div/div[2]/div/div[3]/div/div[2]/table/tbody/tr/td[5]/input[2]")
 	WebElement checkThatItsTwo;
 	
+	//your login in email
+	@FindBy(name = "email")
+	WebElement yourEmail;
+		
+		
+	//your password
+	@FindBy(name= "passwd")
+	WebElement yourPassword;
+		
+	//sign in
+	@FindBy(name = "SubmitLogin")
+	WebElement logIn;
+		
+
+	//proceed with the order,my address is correct
+	@FindBy(name = "processAddress")
+	WebElement confirmAddress;
+		
+	//Agree to terms of service
+	@FindBy(name = "cgv")
+	  WebElement tickBox;
+	
+	//Agree with the delivery charge and proceed
+	@FindBy(name = "processCarrier")
+	WebElement processCarrier;
+
+	//choose to pay by bankwire
+	@FindBy(className ="bankwire")
+	WebElement payBycard;
+	
+	//confirm my order
+	@FindBy(xpath = "/html/body/div/div[2]/div/div[3]/div/form/p/button")
+	WebElement confirmMyOrder;
 	
 	public String getTitle(){
 		return driver.getTitle();
@@ -78,4 +111,51 @@ public class Order2quantititesOfItem {
 		return result;
 	}
 	
+	
+	
+	public void enterEmailAndPassword(String email,String password){
+		yourEmail.sendKeys(email);
+		
+		yourPassword.sendKeys(password);
+		
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		logIn.click();
+		
+		}
+	
+	
+public void confirmAddress(){
+	
+	confirmAddress.click();
+}
+	
+
+public void tickBox(){
+	tickBox.click();
+}
+
+
+
+public void processCarrier(){
+	processCarrier.click();
+}
+
+
+public void payWithBankWire(){
+	payBycard.click();
+}
+
+
+
+public void finalizeOrder(){
+	confirmMyOrder.click();
+}
+
+
 }

@@ -1,28 +1,34 @@
 package Tests;
 import org.openqa.selenium.WebDriver;
 
-
 import org.openqa.selenium.chrome.ChromeDriver;
-import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.Test;
+
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
+
+import org.testng.annotations.BeforeTest;
 import Pages.*;
-import org.openqa.selenium.WebDriver;
-
 
 import static org.junit.Assert.*;
 
-import org.junit.Test;
+
 
 public class ContactUsTest {
 	WebDriver driver;
+	ExtentTest test;
+
+	ExtentReports report;
 	Home homePage;
 	ContactUs contactUs;
 	
 	
 	
-	@Before 
+	@BeforeTest
 	public void setup(){
+		report = new ExtentReports (
+				"C:\\Users\\Administrator\\Desktop\\Result\\ContactUs.html",true);
 		System.setProperty("webdriver.chrome.driver","C:\\Users\\Administrator\\Desktop\\Selenium\\chromedriver.exe");
 	    
 		driver = new ChromeDriver();
@@ -52,10 +58,23 @@ public class ContactUsTest {
 	@Test
 	public void sendMessageToCustomerService(){
 		homePage = new Home(driver);
+		
 		contactUs = new ContactUs(driver);
 		
+		test = report.startTest("Verify On home page");
+		
+		test.log(LogStatus.INFO,"Browser started");
+		
 		String homePagetitle = homePage.getTitle();
-		assertEquals(homePage.getTitle(),"My Store");
+		
+		if(homePagetitle.equals("My Store")){
+			
+			test.log(LogStatus.PASS, "Verify that you're on home page");
+			}else {
+				test.log(LogStatus.FAIL, "Verify that you're on home page");
+			}
+		
+		//assertEquals(homePage.getTitle(),"My Store");
 	
 		String email = "happy1@happy.com";
 		
@@ -100,11 +119,23 @@ public class ContactUsTest {
 		
 		contactUs.successfulMessage();
 		
-		assertEquals(contactUs.successfulMessage(),true);
+		if(contactUs.successfulMessage()==true){
+			test.log(LogStatus.PASS, "Check that email sent successfully");
+		}else {
+			test.log(LogStatus.FAIL, "Email was not sent successfully");
+		}
 		
+		report.endTest(test);
+		report.flush();
+		
+		}
+		
+	
+		
+	
 	}
 	
 	
-	}
+	
 
 
