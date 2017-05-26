@@ -77,12 +77,12 @@ homePage = new Home(driver);
 	
 	String LoginPage = account.getTitle();
 	
-//	if(LoginPage.equals("Login - My Store")){
-//		
-//		test.log(LogStatus.PASS, "Verify that you're the login page");
-//		}else {
-//			test.log(LogStatus.FAIL, "Didnt make it to login page");
-//		}
+	if(LoginPage.equals("Login - My Store")){
+		
+		test.log(LogStatus.PASS, "Verify that you're the login page");
+		}else {
+			test.log(LogStatus.FAIL, "Didnt make it to login page");
+		}
 	
 	
 	try {
@@ -117,7 +117,7 @@ homePage = new Home(driver);
 		
 	}
 	
-	
+	//account = new CreateAccount(driver);
 	
 	String firstName="Peter";
 	
@@ -125,6 +125,8 @@ homePage = new Home(driver);
 	
 	account.firstAndLastName(firstName, lastName);
 	
+	report.endTest(test);
+	report.flush();
 }
 
 }
